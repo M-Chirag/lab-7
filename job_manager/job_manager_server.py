@@ -9,14 +9,11 @@ app = Flask(__name__)
 def count():
     try:
         data = request.get_json()
-        if data['text']:
-            text = data['text']
-            result = word_count.delay(text)
-            return jsonify({"id": result.id}), 200
-        else:
-            return jsonify({"message": "Invalid Input"}), 400
+        text = data['text']
+        result = word_count.delay(text)
+        return jsonify({"id": result.id}), 200
     except KeyError:
-        return jsonify({"message": "'text' attribute is not given in the input. Try again"}), 400
+        return jsonify({"message": "Invalid Key Try again"}), 400
     except ValueError:
         return jsonify({"message": "invalid JSON"}), 400
 
