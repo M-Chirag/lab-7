@@ -9,7 +9,7 @@ app = Flask(__name__)
 def count():
     try:
         data = request.get_json()
-        if 'text' in data:
+        if data['text']:
             text = data['text']
             result = word_count.delay(text)
             return jsonify({"id": result.id}), 200
