@@ -26,7 +26,7 @@ def status(id):
     try:
         res = AsyncResult(id, app=celery_app)
         if res.status == "SUCCESS":
-            return jsonify({"job"+res.status}), 200
+            return jsonify({"count": res.get()}), 200
         elif (res.status == "PENDING"):
             return jsonify({"error": res.status+"The job is running. Try later."}), 400
         elif res.status == "FAILED":
